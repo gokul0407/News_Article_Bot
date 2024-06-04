@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>News List</title>
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=YOUR_API_KEY"></script>
+    <style>
+        .speaker-btn {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Top News Articles</h1>
+    {% for article in articles %}
+        <div>
+            <h2><a href="{{ article.url }}" target="_blank">Article {{ forloop.counter }}</a></h2>
+            <p><strong>Summary:</strong> {{ article.summary }}</p>
+            <p><strong>Keywords:</strong> {{ article.keywords|join:", " }}</p>
+            <pre>{{ article.text }}</pre>
+            <button class="speaker-btn" onclick="speakText('{{ article.text }}')">Listen to Article</button>
+        </div>
+    {% endfor %}
+
+    <script>
+        function speakText(text) {
+            responsiveVoice.speak(text);
+        }
+    </script>
+</body>
+</html>
